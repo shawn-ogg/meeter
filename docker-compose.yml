@@ -1,0 +1,12 @@
+version: "2.1"
+services:
+  meeter:
+    image: tfemptyset/meeter
+    container_name: meeter
+    environment:
+      - MACHINE_ID_FILE=/config/machine-id
+    volumes:
+      - ./config:/config
+    ports:
+      - 8081:8081
+    restart: unless-stopped
