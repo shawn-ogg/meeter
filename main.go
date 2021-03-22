@@ -21,6 +21,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	port := os.Getenv("PORT")
+	if len(port) == 0 {
+		port = "8081"
+	}
+
 	at, _ := strconv.Atoi(os.Getenv("CHANNEL_CHANGE_AT_HOUR"))
 	atTime := time.Duration(at)
 
@@ -40,5 +45,5 @@ func main() {
 		http.Redirect(w, r, "https://meet.jit.si"+u+"_"+sha[0:7], http.StatusFound)
 	})
 
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }

@@ -6,6 +6,7 @@ services:
     environment:
       - MACHINE_ID_FILE=/config/machine-id
       - CHANNEL_CHANGE_AT_HOUR=4
+      #- PORT=8081
     volumes:
       - ./config:/config
     ports:
