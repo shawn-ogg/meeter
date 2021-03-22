@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -19,13 +21,16 @@ func main() {
 		log.Fatal(err)
 	}
 
+	at, _ := strconv.Atoi(os.Getenv("CHANNEL_CHANGE_AT_HOUR"))
+	atTime := time.Duration(at)
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		u := r.URL.String()
 		if len(u) > 1 {
 			u = strings.TrimSuffix(u, "/")
 		}
 		t := time.Now()
-		t = t.Add(-time.Hour * 6) // We change to a new sha at 3 o'clock in the morning
+		t = t.Add(-time.Hour * atTime)
 		day := t.Format("01-02-2006 Monday")
 		hash := sha1.New()
 		hash.Write([]byte(id + day))

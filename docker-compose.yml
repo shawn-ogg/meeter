@@ -5,6 +5,7 @@ services:
     container_name: meeter
     environment:
       - MACHINE_ID_FILE=/config/machine-id
+      - CHANNEL_CHANGE_AT_HOUR=4
     volumes:
       - ./config:/config
     ports:
